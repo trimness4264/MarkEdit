@@ -1,0 +1,38 @@
+@media print {
+    body {
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    .markdown-body {
+        padding: 0;
+        max-width: 100%;
+    }
+
+    pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+    }
+
+    table, blockquote, pre {
+        page-break-inside: avoid;
+    }
+
+    a {
+        color: #000000;
+        text-decoration: underline;
+    }
+}
+
+@page {
+    margin: 20mm;
+}

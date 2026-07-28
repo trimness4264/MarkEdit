@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>MarkEdit 下载</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --blue: #2f5df5;
+      --gray: #8b8b89;
+      --text: #202329;
+      --muted: #7a8290;
+      --bg: #ededed;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .page {
+      width: min(100%, 520px);
+      margin: 0 auto;
+      min-height: 100vh;
+      padding: max(42px, env(safe-area-inset-top)) 28px 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .switch {
+      align-self: flex-end;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 9px 13px;
+      color: var(--blue);
+      background: #dce7ff;
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 14px;
+      font-size: 18px;
+      line-height: 1;
+    }
+    .hero {
+      margin-top: 92px;
+      text-align: center;
+    }
+    .icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 26px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+    h1 {
+      margin: 26px 0 10px;
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: -.4px;
+    }
+    .tagline {
+      margin: 0;
+      font-size: 20px;
+      color: #596170;
+      letter-spacing: 1px;
+    }
+    .actions {
+      width: 100%;
+      margin-top: 112px;
+      display: grid;
+      gap: 28px;
+    }
+    .btn {
+      width: 100%;
+      min-height: 90px;
+      border: 0;
+      border-radius: 18px;
+      color: white;
+      font-size: 26px;
+      font-weight: 800;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      box-shadow: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn.gray { background: var(--gray); }
+    .btn.blue { background: var(--blue); }
+    .btn .brand { font-size: 44px; line-height: 1; }
+    .btn .version {
+      margin-left: auto;
+      padding-right: 28px;
+      font-size: 23px;
+      font-weight: 500;
+    }
+    .note {
+      margin: 42px 0 0;
+      color: #8b93a2;
+      font-size: 18px;
+      line-height: 1.75;
+      text-align: center;
+    }
+    .note strong { color: #697386; font-weight: 700; }
+    .links {
+      margin-top: auto;
+      padding-top: 72px;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 17px;
+    }
+    .links a { color: var(--blue); text-decoration: underline; }
+    @media (max-width: 380px) {
+      .page { padding-left: 20px; padding-right: 20px; }
+      .hero { margin-top: 64px; }
+      .actions { margin-top: 76px; }
+      .btn { min-height: 78px; font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="switch">国内版 ☰</div>
+
+    <section class="hero">
+      <img class="icon" src="assets/app-icon.png" alt="MarkEdit 图标">
+      <h1>MarkEdit</h1>
+      <p class="tagline">简洁 Markdown 编辑器</p>
+    </section>
+
+    <section class="actions" aria-label="下载选项">
+      <a class="btn gray" href="https://github.com/qiandongsun/MarkEdit" rel="noopener">
+        <span class="brand">⌘</span>
+        <span>查看源码</span>
+      </a>
+
+      <a class="btn blue" href="https://github.com/qiandongsun/MarkEdit/archive/refs/heads/main.zip" rel="noopener">
+        <span class="brand"></span>
+        <span>iPhone版下载</span>
+      </a>
+
+      <a class="btn gray" href="https://github.com/qiandongsun/MarkEdit/releases" rel="noopener">
+        <span class="brand">MD</span>
+        <span>版本下载</span>
+        <span class="version">v1.0</span>
+      </a>
+    </section>
+
+    <p class="note">
+      iOS 不支持直接下载安装未上架 App。<br>
+      点击 <strong>iPhone版下载</strong> 会下载源码包，用户需要使用 Mac + Xcode 编译安装。
+    </p>
+
+    <nav class="links">
+      <a href="https://github.com/qiandongsun/MarkEdit#如何运行" rel="noopener">无法下载、安装、验证？</a>
+      <a href="https://github.com/qiandongsun/MarkEdit" rel="noopener">GitHub 项目</a>
+    </nav>
+  </main>
+</body>
+</html>

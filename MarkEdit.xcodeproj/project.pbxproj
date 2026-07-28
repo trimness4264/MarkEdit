@@ -71,7 +71,7 @@
 		E7088114F9E6B7E9E142A6D0 /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
 		E7A44EA9CEE9ADAF7E23BF7B /* PDFExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFExporter.swift; sourceTree = "<group>"; };
 		EE930894CB60E81BB2208E77 /* Down */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Down; path = Vendor/Down; sourceTree = SOURCE_ROOT; };
-		F18899E99D0BCFE44A6AC84E /* MarkEdit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkEdit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F18899E99D0BCFE44A6AC84E /* MarkEdit.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MarkEdit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2CD600906741EA6D3478EB2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFA413B67B053C81E952B2B1 /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -230,6 +230,8 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 5EC9354FB36126E304D85EF1 /* Build configuration list for PBXProject "MarkEdit" */;
 			developmentRegion = en;
@@ -366,14 +368,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5FDUQF9X2X;
 				INFOPLIST_FILE = MarkEdit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.MarkEdit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qiandongsun.MarkEdit;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -386,14 +387,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5FDUQF9X2X;
 				INFOPLIST_FILE = MarkEdit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.MarkEdit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qiandongsun.MarkEdit;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>MarkEdit 安装教程</title>
+  <style>
+    :root {
+      --blue: #2f5df5;
+      --text: #202329;
+      --muted: #7a8290;
+      --bg: #ededed;
+      --card: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+    }
+    .page {
+      width: min(100%, 640px);
+      margin: 0 auto;
+      padding: max(24px, env(safe-area-inset-top)) 20px 60px;
+    }
+    .back {
+      display: inline-block;
+      margin: 8px 0 20px;
+      color: var(--blue);
+      text-decoration: none;
+      font-size: 16px;
+    }
+    h1 { font-size: 30px; margin: 0 0 6px; }
+    .sub { color: var(--muted); margin: 0 0 28px; font-size: 16px; }
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 22px 22px 14px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.05);
+    }
+    .card h2 {
+      font-size: 20px;
+      margin: 0 0 4px;
+    }
+    .card .desc { color: var(--muted); font-size: 15px; margin: 0 0 14px; }
+    .badge {
+      display: inline-block;
+      background: #dce7ff;
+      color: var(--blue);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 2px 10px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    ol.steps { margin: 0; padding-left: 0; list-style: none; counter-reset: s; }
+    ol.steps li {
+      counter-increment: s;
+      position: relative;
+      padding: 0 0 16px 44px;
+      font-size: 16px;
+    }
+    ol.steps li::before {
+      content: counter(s);
+      position: absolute;
+      left: 0; top: 2px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    ol.steps li strong { color: var(--text); }
+    code, .path {
+      background: #f1f3f7;
+      border-radius: 6px;
+      padding: 1px 7px;
+      font-size: 14px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    }
+    .tip {
+      background: #fff8e6;
+      border: 1px solid #ffe1a1;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 15px;
+      margin: 4px 0 14px;
+    }
+    details {
+      border-top: 1px solid #eee;
+      padding: 12px 0;
+    }
+    details:first-of-type { border-top: 0; }
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    details p, details ul { font-size: 15px; color: #444; margin: 8px 0; }
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 30px;
+    }
+    .footer a { color: var(--blue); }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <a class="back" href="index.html">← 返回下载页</a>
+    <h1>MarkEdit 安装教程</h1>
+    <p class="sub">用自己的 Apple ID 免费签名安装，全程约 10 分钟，不需要越狱。</p>
+
+    <div class="tip">
+      <strong>先看这里：</strong>本教程使用苹果官方的「个人免费签名」机制。
+      App 装上后<strong>每 7 天需要续签一次</strong>（重新跑一次第 5 步即可，App 里的数据不会丢）。
+    </div>
+
+    <section class="card">
+      <h2>准备工作</h2>
+      <ol class="steps">
+        <li>一台 <strong>iPhone 或 iPad</strong>（iOS 15 以上）</li>
+        <li>一台 <strong>电脑</strong>（Mac 或 Windows 都可以）</li>
+        <li>一根 <strong>数据线</strong>（首次连接必须用线）</li>
+        <li>一个 <strong>Apple ID</strong>（就是你在 App Store 下载软件用的账号）</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>方法一：Sideloadly<span class="badge">最简单 · 推荐</span></h2>
+      <p class="desc">适合：有电脑、想省事的用户。</p>
+      <ol class="steps">
+        <li>在 iPhone 上打开下载页，点击 <strong>iPhone版下载</strong>，把 <code>MarkEdit-unsigned.ipa</code> 下载下来，通过「文件」App 或隔空投送、微信文件传输等方式<strong>传到电脑上</strong>。</li>
+        <li>在电脑上打开 <code>sideloadly.io</code>，下载并安装 <strong>Sideloadly</strong>。<br>（Windows 用户还需要先安装苹果官网版的 iTunes 和 iCloud，不能用微软商店版。）</li>
+        <li>用数据线把 iPhone 连到电脑，iPhone 上弹出提示时点 <strong>「信任此电脑」</strong>。</li>
+        <li>打开 Sideloadly，把 <code>.ipa</code> 文件<strong>拖进窗口</strong>，在 Apple ID 一栏输入你的 Apple ID 邮箱。</li>
+        <li>点击 <strong>Start</strong>，按提示输入 Apple ID 密码（如果开了双重认证，按提示输入验证码），等待 1～2 分钟，出现 <code>Done</code> 即安装成功。</li>
+        <li>在 iPhone 上打开<br><span class="path">设置 → 通用 → VPN与设备管理</span><br>点你的 Apple ID → 点 <strong>「信任」</strong>。</li>
+        <li>回到桌面，打开 <strong>MarkEdit</strong>，开始使用 🎉</li>
+      </ol>
+      <div class="tip">
+        <strong>7 天后打不开怎么办？</strong>重新执行第 3～5 步即可（不用删除 App，数据都在）。
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>方法二：AltStore<span class="badge">可无线续签</span></h2>
+      <p class="desc">适合：希望手机、电脑连同一 Wi-Fi 就能自动续签的用户。</p>
+      <ol class="steps">
+        <li>在电脑上打开 <code>altstore.io</code>，下载安装 <strong>AltServer</strong>（Windows 同样需要官网版 iTunes + iCloud）。</li>
+        <li>数据线连接 iPhone 并「信任此电脑」。</li>
+        <li>运行 AltServer（Mac 在菜单栏、Windows 在右下角托盘），选择 <strong>Install AltStore</strong> → 选你的 iPhone → 输入 Apple ID 和密码。</li>
+        <li>iPhone 上出现 AltStore 后，到 <span class="path">设置 → 通用 → VPN与设备管理</span> 信任你的 Apple ID。</li>
+        <li>用 iPhone 的 Safari 打开下载页，点击 <strong>iPhone版下载</strong> 下载 IPA。</li>
+        <li>打开 AltStore → <strong>My Apps</strong> → 左上角 <strong>＋</strong> → 选择刚下载的 IPA，等待安装完成。</li>
+        <li>续签：保持电脑 AltServer 运行、手机电脑同一 Wi-Fi，打开 AltStore 点 <strong>Refresh All</strong> 即可。</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>方法三：SideStore<span class="badge">手机独立续签</span></h2>
+      <p class="desc">适合：平时不想开电脑的用户（首次配置稍麻烦，之后续签只靠手机）。</p>
+      <ol class="steps">
+        <li>先用 AltServer 或 Sideloadly（见方法一/二）把 <strong>SideStore</strong> 装到 iPhone 上，官网：<code>sidestore.io</code>。</li>
+        <li>按 SideStore 引导登录 Apple ID，并安装 <strong>WireGuard</strong>、导入 SideStore 提供的 VPN 配置。</li>
+        <li>开启 WireGuard 的 VPN 开关，打开 SideStore 完成配对。</li>
+        <li>用 Safari 下载 <strong>MarkEdit IPA</strong>，在 SideStore 中点 <strong>＋</strong> 导入安装。</li>
+        <li>之后续签只需：打开 WireGuard VPN → 打开 SideStore → 点 <strong>Refresh</strong>。</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>常见问题</h2>
+      <details>
+        <summary>输入 Apple ID 密码安全吗？</summary>
+        <p>Sideloadly / AltStore 会把账号密码直接发给苹果官方服务器用于签名，软件本身不存储。如果担心，可以专门注册一个备用 Apple ID 用于签名，或在苹果官网生成「App 专用密码」。</p>
+      </details>
+      <details>
+        <summary>为什么 7 天就过期？</summary>
+        <p>这是苹果对免费 Apple ID 的限制：免费签名有效期 7 天、同时最多装 3 个自签 App。付费开发者账号（$99/年）则是一年有效期。</p>
+      </details>
+      <details>
+        <summary>续签后 App 里的文件会丢吗？</summary>
+        <p>不会。只要不删除 App 图标，直接覆盖安装/续签，所有文档都保留。</p>
+      </details>
+      <details>
+        <summary>提示「不受信任的开发者」怎么办？</summary>
+        <p>到 <span class="path">设置 → 通用 → VPN与设备管理</span>，点你的 Apple ID，选择「信任」。</p>
+      </details>
+      <details>
+        <summary>安装时报错 / 闪退怎么办？</summary>
+        <p>① 确认 iPhone 已「信任此电脑」；② 确认 Apple ID 密码正确（开了双重认证要输入验证码）；③ 换一根数据线或 USB 口；④ 重启 Sideloadly 和手机后重试。</p>
+      </details>
+      <details>
+        <summary>有没有不用电脑的方法？</summary>
+        <p>首次安装都需要电脑辅助一次。装好 SideStore 后，后续续签可以只用手机完成（见方法三）。</p>
+      </details>
+    </section>
+
+    <p class="footer">
+      还是有问题？到 <a href="https://github.com/qiandongsun/MarkEdit/issues">GitHub Issues</a> 留言<br>
+      <a href="index.html">← 返回下载页</a>
+    </p>
+  </main>
+</body>
+</html>

@@ -26,6 +26,11 @@
     --table-row-alt-bg: #11161d;
 }
 
+/* Code colors and their background must follow the same theme, independently of the page. */
+[data-code-theme="github"] { --code-block-bg: #ffffff; }
+[data-code-theme="githubDark"] { --code-block-bg: #0d1117; }
+[data-code-theme="atomOneDark"] { --code-block-bg: #282c34; }
+
 * {
     box-sizing: border-box;
 }
@@ -97,11 +102,12 @@ html, body {
 }
 
 .markdown-body pre {
-    background-color: var(--code-bg);
+    background-color: var(--code-block-bg, var(--code-bg));
     border-radius: 8px;
     padding: 16px;
     overflow-x: auto;
     margin-bottom: 16px;
+    word-wrap: normal;
 }
 
 .markdown-body pre code {
@@ -138,12 +144,22 @@ html, body {
     margin-top: 4px;
 }
 
+.markdown-body li > ul,
+.markdown-body li > ol {
+    margin-bottom: 0;
+}
+
+.markdown-body .table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    margin-bottom: 16px;
+    -webkit-overflow-scrolling: touch;
+}
+
 .markdown-body table {
     border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 16px;
-    overflow-x: auto;
-    display: block;
+    min-width: 100%;
+    width: max-content;
 }
 
 .markdown-body th,
@@ -151,7 +167,13 @@ html, body {
     border: 1px solid var(--border-color);
     padding: 8px 12px;
     text-align: left;
+    min-width: 80px;
+    max-width: 360px;
+    overflow-wrap: break-word;
 }
+
+.markdown-body [align="center"] { text-align: center; }
+.markdown-body [align="right"] { text-align: right; }
 
 .markdown-body th {
     background-color: var(--table-header-bg);
@@ -170,6 +192,18 @@ html, body {
 
 .markdown-body input[type="checkbox"] {
     margin-right: 6px;
+    vertical-align: middle;
+    accent-color: var(--link-color);
+}
+
+.markdown-body li:has(> input[type="checkbox"]),
+.markdown-body li:has(> p > input[type="checkbox"]) {
+    list-style-type: none;
+}
+
+.markdown-body li > input[type="checkbox"],
+.markdown-body li > p > input[type="checkbox"] {
+    margin-left: -20px;
 }
 
 .hljs {

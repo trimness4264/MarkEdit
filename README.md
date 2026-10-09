@@ -34,13 +34,28 @@ MarkEdit 是一个基于 **SwiftUI + WKWebView** 的 iOS Markdown 编辑器，�
 - 📁 在 App 内浏览沙盒 Documents 目录中的 Markdown 文件
 - 📝 新建、删除 Markdown 文件
 - ✏️ 使用原生 `TextEditor` 编辑 Markdown
-- 👁️ 实时预览渲染结果（Down → HTML → WKWebView）
+- 👁️ 实时预览渲染结果（Marked / JavaScriptCore → HTML → WKWebView）
+- 📋 支持 GFM 表格（对齐、横向滚动）、任务清单、删除线和自动链接
 - 🎨 代码高亮（highlight.js）
 - 🌗 浅色 / 深色 / 跟随系统主题
 - 🖌️ 代码主题切换：GitHub / GitHub Dark / Atom One Dark
 - 📤 导出为 HTML 或 PDF，通过系统分享面板发送
 - 📂 从系统「文件」App 中打开 `.md` 文件
 - 🔗 通过 Document Picker 选择外部文件夹并记住访问权限
+
+### 文件选择回归检查（iOS 26）
+
+首页「打开文件」用于选择 `.md`、`.markdown`、`.mkd` 文件；「当前目录 → 更换」用于选择文件夹。外部文件按原位置编辑，保存会写回原文件。
+
+- 在「我的 iPhone」及 iCloud Drive 中分别选择 Markdown 文件，确认进入编辑页并显示文件内容。
+- 修改内容并保存，在「文件」App 中确认原文件已更新；重启 MarkEdit 后从「最近打开」再次打开。
+- 取消选择或下滑关闭后，再次点击「打开文件」，确认选择器仍可正常打开。
+- 使用「当前目录 → 更换」选择文件夹，确认列出其中的 Markdown 文件。
+- 文件被删除或访问失败时，确认显示错误，并保留原有编辑内容，不进入空白编辑页。
+
+上述检查需要在设备或已启动的模拟器中执行；第三方文件提供器还需在真机中验证。
+
+2026-10-08 已在 iPhone 17 Pro / iOS 26.5 模拟器验证：从系统文件选择器打开本地 `Welcome.md`、进入预览和编辑、修改保存、终止并重启应用后从「最近打开」读回修改、取消后重新打开选择器，以及选择文件夹后列出 Markdown 文件。iCloud Drive、第三方文件提供器、无权限和文件删除场景尚未验证。
 
 ---
 
@@ -145,7 +160,8 @@ MarkEdit/
 
 ## 依赖
 
-- [Down](https://github.com/johnxnguyen/Down) — Markdown 解析库（已本地 vendored 在 `Vendor/Down`）
+- [Marked](https://github.com/markedjs/marked) 12.0.2 — 内置在 `MarkEdit/Resources/marked.js`，由系统 JavaScriptCore 同步解析 Markdown，预览和 HTML/PDF 导出共用解析结果；MIT 许可证随应用打包。固定 UMD 版本以兼容目标系统，不需要联网加载。
+- [Down](https://github.com/johnxnguyen/Down) — 保留的本地 vendored 依赖，当前预览解析已改用 Marked
 - [highlight.js](https://highlightjs.org/) 11.9.0 — 代码高亮
 
 ---
@@ -153,6 +169,10 @@ MarkEdit/
 ## 示例文档
 
 `SampleDocuments/` 目录下包含了一些测试和示例 Markdown 文件，你可以通过 Document Picker 打开该文件夹来体验不同 Markdown 元素的渲染效果。
+
+`21-功能块回归测试.md` 覆盖对齐表格、转义竖线、宽表格、任务清单、嵌套列表、引用内表格、代码块和删除线。构建应用后执行 `sh Tests/MarkdownRendering/run.sh`，可在系统 JavaScriptCore 中检查应用实际打包的解析资源。代码和行内代码中的 Markdown 标记保持原样；内嵌原始 HTML 仍沿用原有的禁用策略。
+
+2026-10-08 已在 iPhone 17 Pro / iOS 26.5 模拟器通过文件选择器打开功能块回归文档，验证表格对齐与转义竖线、宽表格独立横向滚动、任务清单、嵌套列表、引用内表格、代码原样显示、删除线，以及浅色/深色预览；HTML 和 PDF 导出均成功生成文件并显示分享面板。实测同时修复了外部文档预览空白，以及页面主题和代码主题不一致时的代码对比度问题。PDF 分页与宽表格的完整打印布局尚未做专项验证。
 
 ---
 

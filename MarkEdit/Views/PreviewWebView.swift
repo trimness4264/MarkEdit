@@ -4,8 +4,6 @@ import WebKit
 struct PreviewWebView: UIViewRepresentable {
     let html: String
     let baseURL: URL?
-    @EnvironmentObject private var settings: PreviewSettings
-    @Environment(\.colorScheme) private var colorScheme
 
     func makeUIView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
@@ -22,14 +20,12 @@ struct PreviewWebView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: WKWebView, context: Context) {
-        if context.coordinator.lastLoadedHTML != html {
-            let tempDirectory = FileManager.default.temporaryDirectory.appendingPathComponent("Preview", isDirectory: true)
-            try? FileManager.default.createDirectory(at: tempDirectory, withIntermediateDirectories: true)
-            let htmlURL = tempDirectory.appendingPathComponent("preview.html")
-            try? html.write(to: htmlURL, atomically: true, encoding: .utf8)
-            let accessURL = baseURL?.deletingLastPathComponent() ?? tempDirectory
-            uiView.loadFileURL(htmlURL, allowingReadAccessTo: accessURL)
+        if context.coordinator.lastLoadedHTML != html || context.coordinator.lastBaseURL != baseURL {
+            // The generated page lives in memory; its document directory only resolves relative URLs.
+            // Loading a temporary HTML file with an unrelated read-access directory can show a blank page.
+            uiView.loadHTMLString(html, baseURL: baseURL)
             context.coordinator.lastLoadedHTML = html
+            context.coordinator.lastBaseURL = baseURL
         }
     }
 
@@ -40,5 +36,6 @@ struct PreviewWebView: UIViewRepresentable {
     class Coordinator: NSObject, WKNavigationDelegate {
         weak var webView: WKWebView?
         var lastLoadedHTML: String?
+        var lastBaseURL: URL?
     }
 }

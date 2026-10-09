@@ -12,6 +12,7 @@ class FileBrowserViewModel: ObservableObject {
     @Published var searchText: String = ""
 
     private let recentFilesKey = "recentMarkdownFiles"
+    private let recentBookmarksKey = "recentMarkdownFileBookmarks"
     private let fileAccess = FileAccessHelper.shared
     private var bookmarkURL: URL?
 
@@ -68,14 +69,21 @@ class FileBrowserViewModel: ObservableObject {
     }
 
     func selectFolder(_ url: URL) {
-        if url.startAccessingSecurityScopedResource() {
+        let hasAccess = url.startAccessingSecurityScopedResource()
+        do {
+            // A sandbox directory needs no security scope. Let the actual read
+            // decide whether the selected directory is accessible.
+            let loadedItems = try fileAccess.listMarkdownFiles(in: url)
             if let oldURL = bookmarkURL {
                 oldURL.stopAccessingSecurityScopedResource()
             }
-            bookmarkURL = url
+            bookmarkURL = hasAccess ? url : nil
             currentDirectory = url
+            items = loadedItems
             try? fileAccess.saveBookmark(for: url)
-            refresh()
+        } catch {
+            if hasAccess { url.stopAccessingSecurityScopedResource() }
+            errorMessage = "无法打开文件夹: \(error.localizedDescription)"
         }
     }
 
@@ -149,6 +157,12 @@ class FileBrowserViewModel: ObservableObject {
         paths.insert(url.path, at: 0)
         paths = Array(paths.prefix(10))
         UserDefaults.standard.set(paths, forKey: recentFilesKey)
+        var bookmarks = UserDefaults.standard.dictionary(forKey: recentBookmarksKey) as? [String: Data] ?? [:]
+        if let bookmark = try? url.bookmarkData() {
+            bookmarks[url.path] = bookmark
+        }
+        bookmarks = bookmarks.filter { paths.contains($0.key) }
+        UserDefaults.standard.set(bookmarks, forKey: recentBookmarksKey)
         loadRecentFiles()
     }
 
@@ -156,13 +170,29 @@ class FileBrowserViewModel: ObservableObject {
         var paths = UserDefaults.standard.stringArray(forKey: recentFilesKey) ?? []
         paths.removeAll { $0 == item.url.path }
         UserDefaults.standard.set(paths, forKey: recentFilesKey)
+        var bookmarks = UserDefaults.standard.dictionary(forKey: recentBookmarksKey) as? [String: Data] ?? [:]
+        bookmarks.removeValue(forKey: item.url.path)
+        UserDefaults.standard.set(bookmarks, forKey: recentBookmarksKey)
         loadRecentFiles()
     }
 
     private func loadRecentFiles() {
         let paths = UserDefaults.standard.stringArray(forKey: recentFilesKey) ?? []
+        var bookmarks = UserDefaults.standard.dictionary(forKey: recentBookmarksKey) as? [String: Data] ?? [:]
         recentFiles = paths.compactMap { path in
-            let url = URL(fileURLWithPath: path)
+            var url = URL(fileURLWithPath: path)
+            var isStale = false
+            if let bookmark = bookmarks[path],
+               let resolved = try? URL(resolvingBookmarkData: bookmark, bookmarkDataIsStale: &isStale) {
+                url = resolved
+            }
+            let hasAccess = url.startAccessingSecurityScopedResource()
+            defer {
+                if hasAccess { url.stopAccessingSecurityScopedResource() }
+            }
+            if isStale, let bookmark = try? url.bookmarkData() {
+                bookmarks[path] = bookmark
+            }
             guard FileManager.default.fileExists(atPath: url.path) else { return nil }
             let values = try? url.resourceValues(forKeys: [.contentModificationDateKey, .isDirectoryKey])
             return FileItem(
@@ -172,6 +202,7 @@ class FileBrowserViewModel: ObservableObject {
                 modificationDate: values?.contentModificationDate ?? .distantPast
             )
         }
+        UserDefaults.standard.set(bookmarks, forKey: recentBookmarksKey)
     }
 
     func rename(item: FileItem, to name: String) -> URL? {

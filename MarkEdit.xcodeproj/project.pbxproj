@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A10200000000000000000005 /* marked-LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = A10200000000000000000006 /* marked-LICENSE.txt */; };
+		A10200000000000000000001 /* marked.js in Resources */ = {isa = PBXBuildFile; fileRef = A10200000000000000000002 /* marked.js */; };
+		A10200000000000000000003 /* markdown-parser.js in Resources */ = {isa = PBXBuildFile; fileRef = A10200000000000000000004 /* markdown-parser.js */; };
 		050DA095793F4F3C33E365B7 /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7088114F9E6B7E9E142A6D0 /* EditorViewModel.swift */; };
 		0DD94CC57847350C17570076 /* HTMLRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C8C75E0432928C7C04BD1D /* HTMLRenderer.swift */; };
 		101DB1CA4DA76F89218A4600 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E50E975AF6C0EA2ED8B17A29 /* LaunchScreen.storyboard */; };
@@ -41,6 +44,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A10200000000000000000006 /* marked-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "marked-LICENSE.txt"; sourceTree = "<group>"; };
+		A10200000000000000000002 /* marked.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = marked.js; sourceTree = "<group>"; };
+		A10200000000000000000004 /* markdown-parser.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "markdown-parser.js"; sourceTree = "<group>"; };
 		01D104FCA03058ED2ECE19B5 /* FileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItem.swift; sourceTree = "<group>"; };
 		0AC7BF75A00D0CE468326C07 /* FileRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileRowView.swift; sourceTree = "<group>"; };
 		0BD89EAD9CB5FB6156C91419 /* atom-one-dark.min.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = "atom-one-dark.min.css"; sourceTree = "<group>"; };
@@ -115,6 +121,9 @@
 		6ABC6383F591C81E2C0061AC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A10200000000000000000006 /* marked-LICENSE.txt */,
+				A10200000000000000000002 /* marked.js */,
+				A10200000000000000000004 /* markdown-parser.js */,
 				0BD89EAD9CB5FB6156C91419 /* atom-one-dark.min.css */,
 				897F01E0749BF475C2446D0E /* github-dark.min.css */,
 				8B49E75D7C8587DBA8CC74B6 /* github.min.css */,
@@ -260,6 +269,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10200000000000000000005 /* marked-LICENSE.txt in Resources */,
+				A10200000000000000000001 /* marked.js in Resources */,
+				A10200000000000000000003 /* markdown-parser.js in Resources */,
 				C1564661DC603C949119BDD3 /* Assets.xcassets in Resources */,
 				101DB1CA4DA76F89218A4600 /* LaunchScreen.storyboard in Resources */,
 				D47A51634D7247814411AAAE /* atom-one-dark.min.css in Resources */,

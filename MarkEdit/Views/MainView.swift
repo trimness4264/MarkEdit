@@ -1,10 +1,12 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct MainView: View {
     @StateObject private var fileBrowser = FileBrowserViewModel()
     @StateObject private var editor = EditorViewModel()
     @EnvironmentObject private var appState: AppState
-    @State private var showFolderPicker = false
+    @State private var showPicker = false
+    @State private var pickDirectory = false
     @State private var showNewFileSheet = false
     @State private var newFileName = ""
     @State private var isEditing = false
@@ -16,12 +18,16 @@ struct MainView: View {
             FileBrowserView(
                 viewModel: fileBrowser,
                 onSelectFile: { item in
-                    editor.save()
-                    editor.openFile(at: item.url)
-                    fileBrowser.recordOpenedFile(item.url)
-                    isEditing = true
+                    openFile(item.url)
                 },
-                onSelectFolder: { showFolderPicker = true },
+                onOpenFile: {
+                    pickDirectory = false
+                    showPicker = true
+                },
+                onSelectFolder: {
+                    pickDirectory = true
+                    showPicker = true
+                },
                 onCreateFile: { showNewFileSheet = true },
                 onRenameFile: { item in
                     renameTarget = item
@@ -34,9 +40,19 @@ struct MainView: View {
                     .navigationBarTitleDisplayMode(.inline)
             }
             .navigationTitle("文件")
-            .sheet(isPresented: $showFolderPicker) {
-                DocumentPicker(forDirectory: true) { url in
-                    fileBrowser.selectFolder(url)
+            .fileImporter(
+                isPresented: $showPicker,
+                allowedContentTypes: pickDirectory ? [.folder] : DocumentPicker.markdownTypes
+            ) { result in
+                switch result {
+                case .success(let url):
+                    if pickDirectory {
+                        fileBrowser.selectFolder(url)
+                    } else {
+                        openFile(url)
+                    }
+                case .failure(let error):
+                    fileBrowser.errorMessage = "无法选择文件: \(error.localizedDescription)"
                 }
             }
             .alert("新建文件", isPresented: $showNewFileSheet) {
@@ -47,9 +63,7 @@ struct MainView: View {
                 Button("创建") {
                     fileBrowser.createNewFile(named: newFileName)
                     if let item = fileBrowser.selectedFile {
-                        editor.openFile(at: item.url)
-                        fileBrowser.recordOpenedFile(item.url)
-                        isEditing = true
+                        openFile(item.url)
                     }
                     newFileName = ""
                 }
@@ -81,11 +95,9 @@ struct MainView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemBackground).ignoresSafeArea())
-        .onChange(of: appState.pendingURL) { _, url in
+        .onChange(of: appState.pendingURL, initial: true) { _, url in
             guard let url = url else { return }
-            editor.openFile(at: url)
-            fileBrowser.recordOpenedFile(url)
-            isEditing = true
+            openFile(url)
             appState.pendingURL = nil
         }
         .onAppear {
@@ -94,5 +106,25 @@ struct MainView: View {
                 editor.openFile(at: firstFile.url)
             }
         }
+    }
+
+    @discardableResult
+    private func openFile(_ url: URL) -> Bool {
+        if editor.isDirty {
+            editor.save()
+            guard !editor.isDirty else {
+                fileBrowser.errorMessage = editor.errorMessage
+                editor.errorMessage = nil
+                return false
+            }
+        }
+        guard editor.openFile(at: url) else {
+            fileBrowser.errorMessage = editor.errorMessage
+            editor.errorMessage = nil
+            return false
+        }
+        fileBrowser.recordOpenedFile(url)
+        isEditing = true
+        return true
     }
 }

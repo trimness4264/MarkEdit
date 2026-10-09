@@ -9,9 +9,11 @@
         max-width: 100%;
     }
 
-    pre {
+    .markdown-body pre {
         white-space: pre-wrap;
         word-wrap: break-word;
+        overflow-wrap: anywhere;
+        overflow: visible;
     }
 
     img {
@@ -25,6 +27,22 @@
 
     table, blockquote, pre {
         page-break-inside: avoid;
+    }
+
+    .markdown-body .table-scroll {
+        overflow: visible;
+    }
+
+    .markdown-body table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .markdown-body th,
+    .markdown-body td {
+        min-width: 0;
+        max-width: none;
+        overflow-wrap: anywhere;
     }
 
     a {

@@ -14,11 +14,23 @@ class EditorViewModel: ObservableObject {
     private let fileAccess = FileAccessHelper.shared
     private let renderer = MarkdownRenderer.shared
     private var originalText: String = ""
+    private var securityScopedURL: URL?
     init() {}
 
-    func openFile(at url: URL) {
+    deinit {
+        securityScopedURL?.stopAccessingSecurityScopedResource()
+    }
+
+    @discardableResult
+    func openFile(at url: URL) -> Bool {
+        // Keep access for the entire editing session, including subsequent saves.
+        // Local sandbox URLs may return false and are still readable.
+        let hasAccess = url.startAccessingSecurityScopedResource()
         do {
             let content = try fileAccess.readFile(at: url)
+            securityScopedURL?.stopAccessingSecurityScopedResource()
+            securityScopedURL = hasAccess ? url : nil
+            errorMessage = nil
             self.fileURL = url
             self.text = content
             self.originalText = content
@@ -26,8 +38,11 @@ class EditorViewModel: ObservableObject {
             self.isSaving = false
             self.lastSavedAt = fileModificationDate(for: url)
             updatePreview(text: content)
+            return true
         } catch {
+            if hasAccess { url.stopAccessingSecurityScopedResource() }
             errorMessage = "无法打开文件: \(error.localizedDescription)"
+            return false
         }
     }
 

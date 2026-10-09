@@ -4,6 +4,7 @@ import UIKit
 struct FileBrowserView: View {
     @ObservedObject var viewModel: FileBrowserViewModel
     var onSelectFile: (FileItem) -> Void
+    var onOpenFile: () -> Void
     var onSelectFolder: () -> Void
     var onCreateFile: () -> Void
     var onRenameFile: (FileItem) -> Void
@@ -65,7 +66,7 @@ struct FileBrowserView: View {
                 if openedSwipeRowID != nil {
                     dismissTransientState()
                 } else {
-                    onSelectFolder()
+                    onOpenFile()
                 }
             } label: {
                 Label("打开文件", systemImage: "folder")
